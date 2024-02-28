@@ -1,13 +1,15 @@
 // run with ``node connect.js``
 console.log('Starting MongoDB connection...');
 const { MongoClient } = require('mongodb');
-require('dotenv').config;
+require('dotenv').config();
 
 // Connection URL with the database name
 const url = process.env.DB_CONNECTION_URL;
 
+// console.log(process.env);
+
 // Create a new MongoClient
-const client = new MongoClient(url);
+const client = new MongoClient(url, {});
 
 async function main() {
     try {
@@ -18,6 +20,8 @@ async function main() {
         const db = client.db('fruitsDB');
 
         // Perform further operations on the database here
+
+        console.log(db);
 
     } catch (err) {
         console.log(err);

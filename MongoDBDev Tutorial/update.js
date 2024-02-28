@@ -1,6 +1,6 @@
 const { MongoClient, MongoGridFSChunkError } = require('mongodb');
 const stars = "************";
-require('dotenv').config;
+require('dotenv').config();
 
 
 
