@@ -26,9 +26,9 @@ async function main() {
         await userFunctions.fetchUsers(client);
 
         // const user = {
-        //     "username": "ella",
-        //     "email": "ella@example.com",
-        //     "password": "ellaexamplepassword123"
+        //     "username": "joe",
+        //     "email": "joe@example.com",
+        //     "password": "joeexamplepassword123"
         // };
 
         // await userFunctions.createNewUser(client, user);
