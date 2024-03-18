@@ -23,7 +23,6 @@ async function main() {
 
         // console.log("Please choose an action: \n1. Create a new profile\n2. List Profiles\n3. Update a Profile\n4. Delete a Profile");
 
-        await userFunctions.fetchUsers(client);
 
         // const user = {
         //     "username": "joe",
@@ -32,6 +31,37 @@ async function main() {
         // };
 
         // await userFunctions.createNewUser(client, user);
+
+        const ella = {
+            "username": "ella",
+            "email": "ella@example.com",
+            "password": "ellaexamplepassword123"
+        }
+
+        const ellaUpdated = {
+
+            "username": "ella",
+            "email": "ella@fuckThisShit.com",
+            "password": "ellaexamplepassword123"
+        }
+
+        const oops = {
+            "username": "oops",
+            "email": "oops@fuckThisShit.com",
+            "password": "ellaexamplepassword123"
+        }
+
+        // await userFunctions.updateUser(client, ella, ellaUpdated);
+
+        await userFunctions.createNewUser(client, oops);
+
+        await userFunctions.fetchUsers(client);
+
+
+        await userFunctions.deleteUser(client, oops);
+
+        await userFunctions.fetchUsers(client);
+
 
     } catch (err) {
         console.log(err);
