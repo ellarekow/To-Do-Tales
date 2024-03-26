@@ -1,0 +1,131 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body Styles */
+body {
+    background-color: #f0f0f0;
+}
+
+/* Login Container Styles */
+.container-login {
+    width: 50%;
+    margin: 100px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Login Form Styles */
+h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Button Styles */
+.btn {
+    display: block;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    /* Added to remove underline */
+    text-align: center;
+    /* Added to center the button text */
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* 404 Page Styles */
+.container-404 {
+    text-align: center;
+    margin: 100px auto;
+}
+
+h1 {
+    font-size: 72px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 20px;
+    color: #666;
+    margin-top: 0;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Error Image Styles */
+.image-container {
+    margin-top: 50px;
+    overflow: hidden;
+    padding: 70px;
+    /* Add padding */
+}
+
+.error-image {
+    max-width: 100%;
+    height: auto;
+    animation: zoomInOut 2s infinite alternate;
+}
+
+@keyframes zoomInOut {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.5);
+    }
+}
+
+.user {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.user p {
+    margin: 0;
+}
+
+#loadingMessage {
+    display: none;
+    font-style: italic;
+}

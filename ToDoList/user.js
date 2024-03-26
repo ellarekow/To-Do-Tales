@@ -56,6 +56,8 @@ async function fetchUsers(client) {
         });
     }
 
+    return documents;
+
 }
 
 module.exports = {
