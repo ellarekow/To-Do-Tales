@@ -4,9 +4,12 @@ const col = 'Users';
 const db = 'ToDo';
 
 async function createNewUser(client, newUser) {
+
     const result = await client.db(db).collection(col).insertOne(newUser);
 
     console.log(`New user created: \n ${result.insertedId}`);
+
+    return newUser;
 
 }
 

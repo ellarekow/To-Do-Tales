@@ -7,7 +7,6 @@
     <title>Sign Up</title>
     <link rel="stylesheet" href="../css/styles.css">
 
-    </style>
 </head>
 
 <body>
@@ -17,18 +16,71 @@
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
+                <div id="usernameError">Username is already taken</div>
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
+
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="btn" style="width: 100%">Sign Up</button>
+            <button type="submit" onclick="submitForm()" class="btn" style="width: 100%">Sign Up</button>
             <p style="text-align: center; margin-top: 20px;">already have an account? <a href="login.html"
                     class="btn">Login</a></p>
+        </form>
+    </div>
+
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+
+            // Get form data
+            var username = document.getElementById('username').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            // Create JSON object
+            var user = {
+                username: username,
+                email: email,
+                password: password
+            };
+
+            var baseUrl = window.location.origin;
+            var sendUrl = baseUrl + '/signup';
+
+            // Send JSON object to server
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', sendUrl, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(user));
+
+            // Handle response if needed
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Request was successful
+                    console.log(xhr.responseText);
+                } else if (xhr.status === 409) {
+                    // Conflict, check error message
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.error.includes('Username')) {
+                        // Username is already in use, display error message for username
+                        document.getElementById('usernameError').value = response.error;
+                    } else if (response.error.includes('Email')) {
+                        // Email is already in use, display error message for email
+                        document.getElementById('emailError').value = response.error;
+                    }
+                } else {
+                    // Request failed
+                    console.error(xhr.statusText);
+                }
+            };
+        }
+    </script>
+
 </body>
 
 </html>
