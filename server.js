@@ -52,24 +52,34 @@ app.post('/signup.html', async (req, res) => {
 
         // Check if the email is already in use
         const existingUser = await client.db(db).collection(col).findOne({ username: username });
-        if (existingUser) {
-            res.status(409).json({ error: 'Username is already in use' });
-        }
 
         const existingUserByEmail = await client.db(db).collection(col).findOne({ email: email });
-        if (existingUserByEmail) {
-            res.status(409).json({ error: 'Email is already in use' });
+
+        if (existingUser) {
+            res.status(409).send({ success: false, success: false, error: 'Username is already in use' });
+
+            return;
         }
 
-        const userData = req.body;
 
-        const result = await userFunctions.createNewUser(client, userData);
+        else if (existingUserByEmail) {
+            res.status(409).send({ success: false, success: false, error: 'Email is already in use' });
 
-        // res.status(201).json({ message: 'User created successfully', user: result });
+            return;
+        }
 
-        console.log('user: ' + result.username);
+        else {
 
-        res.redirect(`/home?username=${result.username}`);
+            const userData = req.body;
+
+            const result = await userFunctions.createNewUser(client, userData);
+
+            // res.status(201).json({ message: 'User created successfully', user: result });
+
+            console.log('user: ' + result.username);
+
+            res.redirect(`/home?username=${result.username}`);
+        }
 
     } catch (err) {
         console.log(err);
