@@ -6,25 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/png" href="resources/Dragon_by_Manh_Do_on_thenounproject.png" />
 </head>
 
 <body>
     <div class="container-login">
         <h2>Login</h2>
-        <form action="#" method="post">
+        <form id="loginForm" action="/login.html" method="post">
+            <!-- Add CSRF token -->
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <!-- Add input element to display email error message -->
+                <input type="text" id="emailError" class="error" readonly style="display: none;">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" class="btn" style="width: 100%">Login</button>
+            <p style="text-align: center; margin-top: 20px;">Don't have an account? <a href="signup.html"
+                    class="btn">Sign Up</a></p>
         </form>
-        <p style="text-align: center; margin-top: 20px;">Don't have an account? <a href="signup.html" class="btn">Sign
-                Up</a></p>
     </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Get form data
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            // Create JSON object
+            var credentials = {
+                email: email,
+                password: password
+            };
+
+            var baseUrl = window.location.origin;
+            var sendUrl = baseUrl + '/login.html';
+
+            // Send JSON object to server
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', sendUrl, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(credentials));
+
+            // Handle response if needed
+            xhr.onload = function () {
+                document.getElementById('emailError').style.display = 'none';
+
+                if (xhr.status === 200) {
+                    // Request was successful
+                    console.log(xhr.responseText);
+                    window.location.href = '/home';
+                } else if (xhr.status === 401) {
+                    // Unauthorized, display error message
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.error.includes('Email')) {
+                        // Email is not registered, display error message for email
+                        document.getElementById('emailError').value = response.error;
+                        document.getElementById('emailError').style.display = 'block';
+                    }
+                } else {
+                    // Request failed
+                    console.error(xhr.statusText);
+                }
+            };
+        });
+    </script>
+
 </body>
 
 </html>
